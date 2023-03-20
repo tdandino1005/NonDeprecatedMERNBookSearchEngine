@@ -1,5 +1,3 @@
-// TODO{manavm1990}: Move this to a separate '.graphql' file for proper linting (needs Webpack config 😓).
-
 // 🤯 With Apollo Server 4, no need to import gql from 'graphql-tag' 🤯
 // "The gql tag is no longer required to parse GraphQL queries. You can now use plain template strings instead."
 // https://www.apollographql.com/docs/apollo-server/migration/#gql-tag
