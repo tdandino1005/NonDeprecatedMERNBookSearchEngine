@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose";
 export const BookSchema = new Schema(
   {
     authors: [String],
-    description: { type: String, required: true },
+    description: String,
     bookId: { type: String, required: true },
     image: String,
     link: String,
