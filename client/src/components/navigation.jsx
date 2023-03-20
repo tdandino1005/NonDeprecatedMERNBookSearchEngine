@@ -1,15 +1,13 @@
-import { useContext, useState } from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
-import AuthContext from "../../context/auth";
 import RegisterLogin from "./register-login/register-login";
 
-export default function Navigation() {
+export default function Navigation({ user, setUser }) {
   const [isShowingRegisterLogin, setIsShowingRegisterLogin] = useState(false);
-
-  const [user, setUser] = useContext(AuthContext);
 
   return (
     <>
@@ -53,3 +51,11 @@ export default function Navigation() {
     </>
   );
 }
+
+Navigation.propTypes = {
+  user: PropTypes.exact({
+    username: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }),
+  setUser: PropTypes.func.isRequired,
+};
