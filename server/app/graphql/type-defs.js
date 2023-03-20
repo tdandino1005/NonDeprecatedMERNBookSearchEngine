@@ -1,7 +1,9 @@
 // TODO{manavm1990}: Move this to a separate '.graphql' file for proper linting (needs Webpack config 😓).
-import { gql } from "graphql-tag";
 
-export default gql`
+// 🤯 With Apollo Server 4, no need to import gql from 'graphql-tag' 🤯
+// "The gql tag is no longer required to parse GraphQL queries. You can now use plain template strings instead."
+// https://www.apollographql.com/docs/apollo-server/migration/#gql-tag
+export default `
   type Query {
     "All saved 📚 for logged in user"
     books: [Book!]!
@@ -9,11 +11,7 @@ export default gql`
 
   type Mutation {
     "Create a new user"
-    createUser(
-      username: String!
-      email: String!
-      password: String!
-    ): CreateUserLoginResponse!
+    createUser(user: UserInput): CreateUserLoginResponse!
 
     # It is debatable that this is a Query. Convention states that it should generally be a Mutation.
     # https://stackoverflow.com/questions/50189364/shouldnt-the-login-be-a-query-in-graphql/50190570#50190570
@@ -27,7 +25,7 @@ export default gql`
 
   type CreateUserLoginResponse {
     "JWT token"
-    token: String!
+    token: ID!
   }
 
   type Book {
@@ -55,7 +53,11 @@ export default gql`
     "URL to book on Google Books"
     link: String
     title: String!
-    "The currently logged in user"
-    userId: ID!
+  }
+
+  input UserInput {
+    username: String!
+    email: String!
+    password: String!
   }
 `;
