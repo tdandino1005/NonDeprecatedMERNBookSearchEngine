@@ -6,7 +6,6 @@ import express from "express";
 import http from "http";
 import config from "./config.js";
 import { resolvers, typeDefs } from "./graphql/index.js";
-import { decodeToken } from "./middleware.js";
 
 const { port } = config;
 
@@ -29,21 +28,7 @@ async function init() {
   await server.start();
 
   // Specify the path where we'd like to mount our server
-  app.use(
-    "/",
-    cors(),
-    express.json(),
-
-    // Our custom middleware
-    decodeToken,
-    expressMiddleware(server, {
-      context({ req }) {
-        return {
-          user: req.user,
-        };
-      },
-    })
-  );
+  app.use("/", cors(), express.json(), expressMiddleware(server));
 
   // Modified server startup
   await new Promise((resolve) => httpServer.listen({ port }, resolve));
