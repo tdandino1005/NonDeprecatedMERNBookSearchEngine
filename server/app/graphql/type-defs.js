@@ -7,6 +7,7 @@ export default `
   type Query {
     "All saved 📚 for logged in user"
     books: [Book!]!
+    currentUser: User
   }
 
   type Mutation {
@@ -40,6 +41,11 @@ export default `
     title: String!
     "The user who saved this book"
     userId: ID!
+  }
+
+  type User {
+    _id: ID!
+    username: String!
   }
 
   # There doesn't appear to be a way to DRY up this code type 📖 ☝️ 😞
