@@ -1,23 +1,15 @@
 import User from "./index.js";
 
 const controller = {
-  async create(username, password) {
-    const createdUser = await User.create({ username, password });
+  async create(newUser) {
+    const createdUser = await User.create(newUser);
 
-    const jwt = await createdUser.authenticate(password);
-
-    return { jwt };
+    return createdUser.authenticate(newUser.password);
   },
   async show(username, password) {
     const user = await User.findOne({ username });
 
-    const correctPassword = await user?.isCorrectPassword(password);
-
-    if (!correctPassword) {
-      throw new Error("Incorrect password");
-    }
-
-    return user;
+    return user?.authenticate(password);
   },
 };
 
