@@ -14,6 +14,8 @@ const controller = {
     // Does this  📖  belong to the logged in user?
     const bookToDelete = await this.show(bookId);
 
+    if (!bookToDelete) throw new Error("Book not found.");
+
     if (bookToDelete.userId !== userId) {
       throw new Error("You are not authorized to delete this book.");
     }
