@@ -7,11 +7,9 @@ export default `
     books: [Book!]!
     currentUser: User
   }
-
   type Mutation {
     "Create a new user"
     createUser(user: UserInput): CreateUserLoginResponse!
-
     # It is debatable that this is a Query. Convention states that it should generally be a Mutation.
     # https://stackoverflow.com/questions/50189364/shouldnt-the-login-be-a-query-in-graphql/50190570#50190570
     "Login with username and password"
@@ -21,13 +19,11 @@ export default `
     "Remove a 📚 for logged in user"
     removeBook(bookId: ID!): Book!
   }
-
-  // JWT token is returned on successful login and user creation
+  # JWT token is returned on successful login and user creation
   type CreateUserLoginResponse {
     "JWT token"
     token: ID!
   }
-
   type Book {
     "ISBN"
     bookId: ID!
@@ -41,14 +37,13 @@ export default `
     "The user who saved this book"
     userId: ID!
   }
-
   type User {
     _id: ID!
     username: String!
   }
-
   # There doesn't appear to be a way to DRY up this code type 📖 ☝️ 😞
-  // using the input keyword allows us to pass in an object as an argument
+  
+  # using the input keyword allows us to pass in an object as an argument
   input BookInput {
     "ISBN"
     bookId: ID!
@@ -60,7 +55,6 @@ export default `
     link: String
     title: String!
   }
-
   input UserInput {
     username: String!
     email: String!

@@ -8,7 +8,7 @@ export default {
     secret: process.env.JWT_SECRET,
   },
   // Added this to make sure that the versionKey is not added to the document
-  mongooseSchemaOptions: { 
+  mongooseSchemaOptions: {
     new: true,
     runValidators: true,
     strict: "throw",

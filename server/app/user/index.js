@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { Schema, model } from "mongoose";
+import { model, Schema } from "mongoose";
 import config from "../config.js";
 import { generateToken } from "../utils.js";
 
@@ -41,7 +41,7 @@ UserSchema.methods.authenticate = async function (password) {
   if (!isCorrectPassword) {
     throw new Error("Incorrect password");
   }
-// Use generateToken from utils.js
+  // Use generateToken from utils.js
   return generateToken({ user: { username: this.username, id: this._id } });
 };
 
