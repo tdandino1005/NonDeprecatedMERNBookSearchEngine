@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { Schema, model } from "mongoose";
 import config from "../config.js";
-import { generateToken } from "../utils.js";
+import { encodeToken } from "../utils.js";
 
 const UserSchema = new Schema(
   {
@@ -42,7 +42,7 @@ UserSchema.methods.authenticate = async function (password) {
     throw new Error("Incorrect password");
   }
 
-  return generateToken({ user: { username: this.username, id: this._id } });
+  return encodeToken({ user: { username: this.username, id: this._id } });
 };
 
 export default model("User", UserSchema);
