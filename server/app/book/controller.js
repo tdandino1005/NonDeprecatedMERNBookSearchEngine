@@ -7,6 +7,9 @@ const controller = {
   index(userId) {
     return Book.find({ userId });
   },
+  show(bookId) {
+    return Book.findById(bookId);
+  },
   delete(bookId) {
     return Book.findByIdAndDelete(bookId);
   },
