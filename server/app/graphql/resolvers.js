@@ -7,5 +7,10 @@ export default {
 
       return { token };
     },
+    async login(_, { username, password }) {
+      const token = await userController.show(username, password);
+
+      return { token };
+    },
   },
 };
