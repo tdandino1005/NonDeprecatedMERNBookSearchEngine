@@ -1,18 +1,11 @@
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: new URL("../.env", import.meta.url) });
 
 export default {
   jwt: {
-    expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+    expiresIn: process.env.JWT_EXPIRES_IN || "1h",
     secret: process.env.JWT_SECRET,
-  },
-  // Added this to make sure that the versionKey is not added to the document
-  mongooseSchemaOptions: {
-    new: true,
-    runValidators: true,
-    strict: "throw",
-    versionKey: false,
   },
   mongoURL: process.env.MONGO_URL || "mongodb://localhost:27017/books",
   port: process.env.PORT || 4000,

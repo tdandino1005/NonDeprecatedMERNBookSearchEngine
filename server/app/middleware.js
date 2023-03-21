@@ -5,16 +5,22 @@ export const decodeToken = (req, _, next) => {
   // Split "Bearer <token>" into ["Bearer", "<token>"]
   const token = req.headers.authorization?.split(" ")[1];
 
-  //   This will either be undefined or an object with the data property
+  // This will either stay as 'undefined' or be set to the decoded token
   let decodedToken;
 
-  if (token) {
-    decodedToken = jwt.verify(token, config.jwt.secret);
+  // If there is a token, try to decode it
+  try {
+    if (token) {
+      decodedToken = jwt.verify(token, config.jwt.secret);
+    }
+  } catch (err) {
+    console.error(err.message);
+
+    next();
   }
-  //   Set the user tothe decoded token's data property
+
+  // Set the user to the decoded token's data
   req.user = decodedToken?.data;
 
-  // Using next() will allow the request to continue to the next middleware
-  // If we don't call next(), the request will hang
   next();
 };

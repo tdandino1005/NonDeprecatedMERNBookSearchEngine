@@ -36,7 +36,9 @@ async function init() {
     decodeToken,
     expressMiddleware(server, {
       context({ req }) {
-        return { user: req.user };
+        return {
+          user: req.user,
+        };
       },
     })
   );
