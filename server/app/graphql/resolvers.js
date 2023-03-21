@@ -24,7 +24,8 @@ export default {
         throw new Error("You are not authorized to delete this book.");
       }
 
-      return await bookController.delete(bookId);
+      await bookController.delete(bookId);
+      return bookToDelete;
     },
   },
 };
