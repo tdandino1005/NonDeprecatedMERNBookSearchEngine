@@ -16,9 +16,9 @@ export default `
     # https://stackoverflow.com/questions/50189364/shouldnt-the-login-be-a-query-in-graphql/50190570#50190570
     "Login with username and password"
     login(username: String!, password: String!): CreateUserLoginResponse!
-    "Save a 📚 for logged in user"
+    "Save a 📖 for logged in user"
     saveBook(book: BookInput!): Book!
-    "Remove a 📚 for logged in user"
+    "Remove a 📖 for logged in user"
     removeBook(bookId: ID!): Book!
   }
 
