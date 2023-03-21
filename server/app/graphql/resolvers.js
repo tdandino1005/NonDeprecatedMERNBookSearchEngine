@@ -1,3 +1,4 @@
+import bookController from "../book/controller.js";
 import userController from "../user/controller.js";
 
 export default {
@@ -11,6 +12,9 @@ export default {
       const token = await userController.show(username, password);
 
       return { token };
+    },
+    async saveBook(_, { book }, { user }) {
+      return await bookController.create({ ...book, userId: user.id });
     },
   },
 };
