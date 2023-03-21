@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import config from "../config.js";
+import config from "./config.js";
 
 export const decodeToken = (req, _, next) => {
   // Split "Bearer <token>" into ["Bearer", "<token>"]
