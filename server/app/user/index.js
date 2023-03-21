@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { Schema, model } from "mongoose";
 import config from "../config.js";
-import { encodeToken } from "../utils.js";
+import { encodeToken, handleError } from "../utils.js";
 
 const UserSchema = new Schema(
   {
@@ -39,7 +39,8 @@ UserSchema.methods.authenticate = async function (password) {
   );
 
   if (!isCorrectPassword) {
-    throw new Error("Incorrect password");
+    // ⚠️ Don't reveal specifics about why authentication failed 🦉
+    handleError(new Error("Invalid credentials."), "UNAUTHORIZED");
   }
 
   return encodeToken({ username: this.username, id: this._id });

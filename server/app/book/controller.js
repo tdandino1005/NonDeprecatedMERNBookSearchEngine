@@ -1,3 +1,4 @@
+import { handleError } from "../utils.js";
 import Book from "./index.js";
 
 const controller = {
@@ -14,10 +15,14 @@ const controller = {
     // Does this  📖  belong to the logged in user?
     const bookToDelete = await this.show(bookId);
 
-    if (!bookToDelete) throw new Error("Book not found.");
+    if (!bookToDelete)
+      handleError(new Error("Book not found."), "BAD_USER_INPUT");
 
     if (bookToDelete.userId !== userId) {
-      throw new Error("You are not authorized to delete this book.");
+      handleError(
+        new Error("You are not authorized to delete this book."),
+        "UNAUTHORIZED"
+      );
     }
 
     await Book.deleteOne({ bookId });
