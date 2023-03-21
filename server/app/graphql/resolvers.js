@@ -1,18 +1,14 @@
-import { ApolloServerErrorCode } from "@apollo/server/errors";
 import { GraphQLError } from "graphql";
 import bookController from "../book/controller.js";
 import userController from "../user/controller.js";
 
-function handleUnauthorizedError(error) {
-  if (error.extensions?.code !== ApolloServerErrorCode.GRAPHQL_PARSE_FAILED) {
-    throw new GraphQLError(error.message, {
-      extensions: {
-        code: "UNAUTHORIZED",
-      },
-    });
-  }
-
-  throw error;
+// This is a helper function to handle anticipated errors 👇🏾
+function handleError(error, code) {
+  throw new GraphQLError(error.message, {
+    extensions: {
+      code,
+    },
+  });
 }
 
 export default {
@@ -28,45 +24,39 @@ export default {
       return { token };
     },
     async login(_, { username, password }) {
-      if (!username || !password)
-        throw new GraphQLError("Username and password are required.", {
-          extensions: {
-            code: "BAD_USER_INPUT",
-          },
-        });
-
       const token = await userController.show(username, password);
 
-      if (!token) handleUnauthorizedError(new Error("Invalid credentials."));
+      if (!token)
+        handleError(new Error("Invalid credentials."), "UNAUTHORIZED");
 
       return { token };
     },
     async saveBook(_, { book }, { user }) {
       // Don't bother controller if no user
-      if (!user) {
-        throw new GraphQLError("You must be logged in to save 💾 a book.", {
-          extensions: {
-            code: "UNAUTHENTICATED",
-          },
-        });
-      }
+      if (!user)
+        handleError(
+          new Error("You must be logged in to save 📖 a book."),
+          "UNAUTHENTICATED"
+        );
 
       return await bookController.create({ ...book, userId: user.id });
     },
     async removeBook(_, { bookId }, { user }) {
       // Don't bother controller if no user
-      if (!user) {
-        throw new GraphQLError("You must be logged in to remove 🔥 a book.", {
-          extensions: {
-            code: "UNAUTHENTICATED",
-          },
-        });
-      }
+      if (!user)
+        handleError(
+          new Error("You must be logged in to remove 🔥 a book."),
+          "UNAUTHENTICATED"
+        );
 
       try {
         return await bookController.delete(bookId, user.id);
       } catch (error) {
-        handleUnauthorizedError(error);
+        if (error.message.includes("You are not authorized")) {
+          handleError(error, "UNAUTHORIZED");
+        } else if (error.message.includes("Book not found")) {
+          handleError(error, "BAD_USER_INPUT");
+        }
       }
     },
   },
