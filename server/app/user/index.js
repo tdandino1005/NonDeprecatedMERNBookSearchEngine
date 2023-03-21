@@ -41,7 +41,7 @@ UserSchema.methods.authenticate = async function (password) {
   if (!isCorrectPassword) {
     throw new Error("Incorrect password");
   }
-
+// Use generateToken from utils.js
   return generateToken({ user: { username: this.username, id: this._id } });
 };
 

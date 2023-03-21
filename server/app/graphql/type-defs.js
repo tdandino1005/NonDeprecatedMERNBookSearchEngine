@@ -22,6 +22,7 @@ export default `
     removeBook(bookId: ID!): Book!
   }
 
+  // JWT token is returned on successful login and user creation
   type CreateUserLoginResponse {
     "JWT token"
     token: ID!
@@ -47,6 +48,7 @@ export default `
   }
 
   # There doesn't appear to be a way to DRY up this code type 📖 ☝️ 😞
+  // using the input keyword allows us to pass in an object as an argument
   input BookInput {
     "ISBN"
     bookId: ID!
