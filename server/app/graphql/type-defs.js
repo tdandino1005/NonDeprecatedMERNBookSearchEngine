@@ -23,7 +23,7 @@ export default `
   }
 
   type CreateUserLoginResponse {
-    "JWT token"
+    "JWT"
     token: ID!
   }
 
