@@ -40,7 +40,7 @@ export default `
   }
 
   type User {
-    _id: ID!
+    id: ID!
     username: String!
     books: [Book!]!
   }
