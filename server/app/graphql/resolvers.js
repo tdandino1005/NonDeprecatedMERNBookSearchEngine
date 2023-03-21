@@ -16,5 +16,8 @@ export default {
     async saveBook(_, { book }, { user }) {
       return await bookController.create({ ...book, userId: user.id });
     },
+    async removeBook(_, { bookId }, { user }) {
+      return await bookController.delete(bookId, user.id);
+    },
   },
 };

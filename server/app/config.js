@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 
+// TODO{manavm1990}: Set path to .env file for consistency regardless of where 'npm start' is run from
 dotenv.config();
 
 export default {
