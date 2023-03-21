@@ -3,8 +3,6 @@
 // https://www.apollographql.com/docs/apollo-server/migration/#gql-tag
 export default `
   type Query {
-    "All saved 📚 for logged in user"
-    books: [Book!]!
     currentUser: User
   }
 
@@ -44,6 +42,7 @@ export default `
   type User {
     _id: ID!
     username: String!
+    books: [Book!]!
   }
 
   # There doesn't appear to be a way to DRY up this code type 📖 ☝️ 😞
