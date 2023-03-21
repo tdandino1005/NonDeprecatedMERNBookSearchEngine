@@ -42,7 +42,7 @@ UserSchema.methods.authenticate = async function (password) {
     throw new Error("Incorrect password");
   }
 
-  return encodeToken({ user: { username: this.username, id: this._id } });
+  return encodeToken({ username: this.username, id: this._id });
 };
 
 export default model("User", UserSchema);
