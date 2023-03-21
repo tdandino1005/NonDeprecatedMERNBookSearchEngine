@@ -15,8 +15,6 @@ const controller = {
     const bookToDelete = await this.show(bookId);
 
     if (bookToDelete.userId !== userId) {
-      console.log(bookToDelete.userId, userId, "from the if statement");
-      // TODO: Use Apollo Server 4 error handling
       throw new Error("You are not authorized to delete this book.");
     }
 
