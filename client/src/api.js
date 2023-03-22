@@ -11,4 +11,8 @@ export const index = async (q) => {
   }
 
   return response.json();
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> f9b79737be8b2bca6e2ad8fce129741b0b92357e
