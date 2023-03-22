@@ -8,6 +8,7 @@ export const encodeToken = (payload) => {
   });
 };
 
+//
 export const handleError = (error, code = "INTERNAL_SERVER_ERROR") => {
   throw new GraphQLError(error.message, {
     extensions: {
