@@ -7,3 +7,15 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const CURRENT_USER = gql`
+    query currentUser {
+        currentUser {
+            id
+            username
+            books {
+                title
+                description
+                authors
+                image
+            }
