@@ -4,7 +4,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 export default function RegisterLoginForm() {
-  const [login] = useMutation(LOGIN);
+  const [login] = useMutation(LOGIN, {
+    onCompleted(data) {
+      localStorage.setItem("token", data.login.token);
+    },
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
