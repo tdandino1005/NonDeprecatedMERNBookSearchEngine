@@ -5,6 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import RegisterLogin from "../register-login/register-login";
 
 export default function Navigation() {
+  // 
   const [isShowingRegisterLogin, setIsShowingRegisterLogin] = useState(false);
 
   return (
