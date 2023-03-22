@@ -1,11 +1,15 @@
+import { CURRENT_USER } from "@/schema/type-defs";
+import { useQuery } from "@apollo/client";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
+import LoginStatus from "./login-status";
 import RegisterLogin from "./register-login/register-login";
 
 export default function Navigation() {
   const [isShowingRegisterLogin, setIsShowingRegisterLogin] = useState(false);
+
+  const { data } = useQuery(CURRENT_USER);
 
   return (
     <>
@@ -16,10 +20,13 @@ export default function Navigation() {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="nav" />
           <Navbar.Collapse className="justify-content-end" id="nav">
-            <Navbar.Text>
-              <Button onClick={() => setIsShowingRegisterLogin(true)}>
-                Login/Register
-              </Button>
+            <Navbar.Text className="text-white">
+              {data?.currentUser && (
+                <LoginStatus
+                  currentUser={data.currentUser}
+                  handleClick={() => setIsShowingRegisterLogin(true)}
+                />
+              )}
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
