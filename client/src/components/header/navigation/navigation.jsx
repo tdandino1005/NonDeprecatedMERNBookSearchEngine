@@ -21,23 +21,11 @@ export default function Navigation() {
           <Navbar.Toggle aria-controls="nav" />
           <Navbar.Collapse className="justify-content-end" id="nav">
             <Navbar.Text className="text-white">
-<<<<<<<< HEAD:client/src/components/header/navigation.jsx
-              {data?.currentUser ? (
-                <>
-                  Signed in as: {data.currentUser.username}
-                  <Button className="ms-2">Logout</Button>
-                </>
-              ) : (
-                <Button onClick={() => setIsShowingRegisterLogin(true)}>
-                  Login/Register
-                </Button>
-========
               {data?.currentUser && (
                 <LoginStatus
                   currentUser={data.currentUser}
                   handleClick={() => setIsShowingRegisterLogin(true)}
                 />
->>>>>>>> c22c2d89d3b6059fef4272d8640f5433acdf25e0:client/src/components/header/navigation/navigation.jsx
               )}
             </Navbar.Text>
           </Navbar.Collapse>
